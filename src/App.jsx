@@ -132,7 +132,7 @@ export default function App() {
       <div className="app">
         <header className="app-header">
           {/* <h1>Horizon</h1> */}
-          <img src="../public/titolo.PNG" alt="" style={{width:'100%'}}/>
+          <img src="/titolo.PNG" alt="" style={{width:'100%'}}/>
         </header>
         <div className="header-actions">
           <button className="btn-primary" onClick={handleNewEvent}>
