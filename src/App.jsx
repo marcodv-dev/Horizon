@@ -65,6 +65,7 @@ export default function App() {
     setShowVoiceOverlay(true)
     document.body.style.overflow = 'hidden'
     start((text) => {
+      console.log('Voice input:', text)
       setShowVoiceOverlay(false)
       const parsed = parseVoice(text)
       addEvent(parsed)
