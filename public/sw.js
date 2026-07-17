@@ -1,9 +1,10 @@
-const CACHE_NAME = 'eventi-v1'
+const CACHE_NAME = 'eventi-v2'
 const ASSETS = [
   '/',
   '/index.html',
-  '/icon-192.svg',
-  '/icon-512.svg',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/manifest.json',
 ]
 
 self.addEventListener('install', (event) => {
