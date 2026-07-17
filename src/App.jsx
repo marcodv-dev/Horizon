@@ -109,9 +109,9 @@ export default function App() {
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       {showVoiceOverlay && (
-        <div className="voice-overlay" onClick={e => e.stopPropagation()}>
+        <div className="voice-overlay">
           {error ? (
-            <div style={{display:'flex',flexDirection:'column',gap:'24px'}}>
+            <div style={{display:'flex',flexDirection:'column',gap:'24px',pointerEvents:'auto'}}>
               <div className="voice-circle" onClick={handleVoiceCancel} style={{margin:'0 auto'}}>
                 <svg viewBox="0 0 24 24" width="48" height="48" fill="#FF00FF">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
@@ -120,7 +120,7 @@ export default function App() {
               <p className="voice-error" style={{margin:'0 auto'}}>{error}</p>
             </div>
           ) : (
-            <>
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'32px',pointerEvents:'auto'}}>
               <div className={`voice-circle ${isListening ? 'pulse' : ''}`} onClick={handleVoiceConfirm}>
                 <svg viewBox="0 0 24 24" width="48" height="48" fill="#FF00FF">
                   <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
@@ -128,7 +128,7 @@ export default function App() {
                 </svg>
               </div>
               <button className="btn-voice-cancel" onClick={handleVoiceCancel}>Annulla</button>
-            </>
+            </div>
           )}
         </div>
       )}
