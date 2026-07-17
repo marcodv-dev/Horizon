@@ -109,7 +109,7 @@ export default function App() {
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       {showVoiceOverlay && (
-        <div className="voice-overlay">
+        <div className="voice-overlay" onClick={e => e.stopPropagation()}>
           {error ? (
             <div style={{display:'flex',flexDirection:'column',gap:'24px'}}>
               <div className="voice-circle" onClick={handleVoiceCancel} style={{margin:'0 auto'}}>
