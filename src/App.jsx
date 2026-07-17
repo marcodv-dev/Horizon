@@ -66,11 +66,6 @@ export default function App() {
     document.body.style.overflow = 'hidden'
     start((text) => {
       console.log('[Voice] auto result:', text)
-      const parsed = parseVoice(text)
-      addEvent(parsed)
-      addToast('Evento creato')
-      setShowVoiceOverlay(false)
-      document.body.style.overflow = ''
     })
   }
 
@@ -109,9 +104,9 @@ export default function App() {
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       {showVoiceOverlay && (
-        <div className="voice-overlay">
+        <div className="voice-overlay" onTouchStart={e => e.stopPropagation()}>
           {error ? (
-            <div style={{display:'flex',flexDirection:'column',gap:'24px',pointerEvents:'auto'}}>
+            <div style={{display:'flex',flexDirection:'column',gap:'24px'}}>
               <div className="voice-circle" onClick={handleVoiceCancel} style={{margin:'0 auto'}}>
                 <svg viewBox="0 0 24 24" width="48" height="48" fill="#FF00FF">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>

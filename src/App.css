@@ -504,7 +504,7 @@ button{
   justify-content: center;
   gap: 32px;
   z-index: 1000;
-  pointer-events: none;
+  background: transparent;
 }
 
 .voice-circle {

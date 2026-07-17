@@ -6,6 +6,7 @@ export function useVoiceInput() {
   const [error, setError] = useState(null)
   const recognitionRef = useRef(null)
   const onResultRef = useRef(null)
+  const lastTranscriptRef = useRef('')
 
   const start = useCallback((onResult) => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -15,6 +16,7 @@ export function useVoiceInput() {
     }
 
     onResultRef.current = onResult || null
+    lastTranscriptRef.current = ''
     console.log('[Voice] start called')
 
     const recognition = new SpeechRecognition()
@@ -27,6 +29,7 @@ export function useVoiceInput() {
       setIsListening(true)
       setError(null)
       setTranscript('')
+      lastTranscriptRef.current = ''
     }
 
     recognition.onresult = (event) => {
@@ -34,7 +37,7 @@ export function useVoiceInput() {
       console.log('[Voice] result:', text)
       setTranscript(text)
       setIsListening(false)
-      if (onResultRef.current) onResultRef.current(text)
+      lastTranscriptRef.current = text
     }
 
     recognition.onerror = (event) => {
@@ -61,15 +64,11 @@ export function useVoiceInput() {
   const stop = useCallback((onStopped) => {
     console.log('[Voice] stop called')
     if (recognitionRef.current) {
-      recognitionRef.current.onresult = (event) => {
-        const text = event.results[0][0].transcript
-        console.log('[Voice] result on stop:', text)
-        setTranscript(text)
-        setIsListening(false)
-        if (onStopped) onStopped(text)
-      }
+      recognitionRef.current.onresult = null
       recognitionRef.current.stop()
       setIsListening(false)
+      if (onStopped) onStopped(lastTranscriptRef.current)
+      lastTranscriptRef.current = ''
     }
   }, [])
 
