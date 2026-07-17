@@ -65,16 +65,31 @@ export default function App() {
     setShowVoiceOverlay(true)
     document.body.style.overflow = 'hidden'
     start((text) => {
-      console.log('Voice input:', text)
-      setShowVoiceOverlay(false)
+      console.log('[Voice] auto result:', text)
       const parsed = parseVoice(text)
       addEvent(parsed)
       addToast('Evento creato')
+      setShowVoiceOverlay(false)
+      document.body.style.overflow = ''
     })
   }
 
-  const handleStopVoice = () => {
+  const handleVoiceConfirm = () => {
+    stop((text) => {
+      console.log('[Voice] confirm:', text)
+      if (text) {
+        const parsed = parseVoice(text)
+        addEvent(parsed)
+        addToast('Evento creato')
+      }
+      setShowVoiceOverlay(false)
+      document.body.style.overflow = ''
+    })
+  }
+
+  const handleVoiceCancel = () => {
     stop()
+    console.log('[Voice] cancelled')
     setShowVoiceOverlay(false)
     document.body.style.overflow = ''
   }
@@ -94,10 +109,10 @@ export default function App() {
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       {showVoiceOverlay && (
-        <div className="voice-overlay" onClick={handleStopVoice}>
+        <div className="voice-overlay">
           {error ? (
             <div style={{display:'flex',flexDirection:'column',gap:'24px'}}>
-              <div className="voice-circle" onClick={handleStopVoice} style={{margin:'0 auto'}}>
+              <div className="voice-circle" onClick={handleVoiceCancel} style={{margin:'0 auto'}}>
                 <svg viewBox="0 0 24 24" width="48" height="48" fill="#FF00FF">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
                 </svg>
@@ -106,13 +121,13 @@ export default function App() {
             </div>
           ) : (
             <>
-              <div className={`voice-circle ${isListening ? 'pulse' : ''}`} onClick={handleStopVoice}>
+              <div className={`voice-circle ${isListening ? 'pulse' : ''}`} onClick={handleVoiceConfirm}>
                 <svg viewBox="0 0 24 24" width="48" height="48" fill="#FF00FF">
                   <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
                   <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
                 </svg>
               </div>
-              <button className="btn-voice-cancel" onClick={handleStopVoice}>Annulla</button>
+              <button className="btn-voice-cancel" onClick={handleVoiceCancel}>Annulla</button>
             </>
           )}
         </div>

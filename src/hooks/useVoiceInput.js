@@ -58,9 +58,16 @@ export function useVoiceInput() {
     recognition.start()
   }, [])
 
-  const stop = useCallback(() => {
+  const stop = useCallback((onStopped) => {
     console.log('[Voice] stop called')
     if (recognitionRef.current) {
+      recognitionRef.current.onresult = (event) => {
+        const text = event.results[0][0].transcript
+        console.log('[Voice] result on stop:', text)
+        setTranscript(text)
+        setIsListening(false)
+        if (onStopped) onStopped(text)
+      }
       recognitionRef.current.stop()
       setIsListening(false)
     }
