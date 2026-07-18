@@ -65,13 +65,13 @@ export default function App() {
     setShowVoiceOverlay(true)
     document.body.style.overflow = 'hidden'
     start((text) => {
-      console.log('[Voice] auto result:', text)
+
     })
   }
 
   const handleVoiceConfirm = () => {
     stop((text) => {
-      console.log('[Voice] confirm:', text)
+
       if (text) {
         const parsed = parseVoice(text)
         addEvent(parsed)
@@ -84,7 +84,7 @@ export default function App() {
 
   const handleVoiceCancel = () => {
     stop()
-    console.log('[Voice] cancelled')
+
     setShowVoiceOverlay(false)
     document.body.style.overflow = ''
   }

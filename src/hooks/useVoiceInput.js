@@ -17,7 +17,7 @@ export function useVoiceInput() {
 
     onResultRef.current = onResult || null
     lastTranscriptRef.current = ''
-    console.log('[Voice] start called')
+
 
     const recognition = new SpeechRecognition()
     recognition.lang = 'it-IT'
@@ -25,7 +25,7 @@ export function useVoiceInput() {
     recognition.maxAlternatives = 1
 
     recognition.onstart = () => {
-      console.log('[Voice] listening...')
+
       setIsListening(true)
       setError(null)
       setTranscript('')
@@ -34,14 +34,14 @@ export function useVoiceInput() {
 
     recognition.onresult = (event) => {
       const text = event.results[0][0].transcript
-      console.log('[Voice] result:', text)
+
       setTranscript(text)
       setIsListening(false)
       lastTranscriptRef.current = text
     }
 
     recognition.onerror = (event) => {
-      console.log('[Voice] error:', event.error)
+
       setIsListening(false)
       if (event.error === 'not-allowed') {
         setError('Permesso microfono negato.')
@@ -53,7 +53,7 @@ export function useVoiceInput() {
     }
 
     recognition.onend = () => {
-      console.log('[Voice] ended')
+
       setIsListening(false)
     }
 
@@ -62,7 +62,7 @@ export function useVoiceInput() {
   }, [])
 
   const stop = useCallback((onStopped) => {
-    console.log('[Voice] stop called')
+
     if (recognitionRef.current) {
       recognitionRef.current.onresult = null
       recognitionRef.current.stop()
