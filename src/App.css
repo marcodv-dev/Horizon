@@ -329,15 +329,11 @@ button{
   border: 1px solid #d2d2d7;
   border-radius: 10px;
   font-size: 0.85rem;
-  background: #F3F4F6;
+  background-color: white;
   color: #374151;
   cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
-}
-
-.btn-history:hover {
-  background: #E5E7EB;
 }
 
 .btn-history.active {
@@ -350,7 +346,7 @@ button{
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 14px 40px;
   background: linear-gradient(135deg, #800080 0%, #FF00FF 100%);
   color: white;
   border: none;

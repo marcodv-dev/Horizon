@@ -140,11 +140,17 @@ export default function EventList({ events, onDelete, onEdit, historyMode, onTog
           </button>
         </div>
       </div>
+        
+      {historyMode && <label style={{
+        color:'#6e6e73',
+        fontWeight:500
+      }}>Cronologia</label>}
 
       <div className="list-scroll" style={{paddingBottom:'120px',paddingTop:'10px'}}>
         {filtered.length === 0 && (
           <p className="empty">Nessun evento trovato.</p>
         )}
+
 
         {filtered.map(ev => (
           <div
